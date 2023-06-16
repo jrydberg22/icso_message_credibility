@@ -1,4 +1,7 @@
-#### CPOR Credibility Experiment
+#### Shooting the messenger: Perceptions of expert credibility after making knowledge claims on punitive 
+#### responses to individuals convicted of sexual offenses (RJQY-2022-0317)
+
+#### Manuscript Analysis Replication Script
 
 #### Setup Workspace ####
 
