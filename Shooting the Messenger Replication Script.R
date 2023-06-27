@@ -364,7 +364,7 @@ goodwill ~ tx_sexoffender + tx_professor
 trustworthiness ~ tx_sexoffender + tx_professor
 
 belief_rehab ~ competence + goodwill + trustworthiness + tx_sexoffender + tx_professor
-belief_mh ~ competence + goodwill + trustworthiness + + belief_rehab + tx_sexoffender + tx_professor
+belief_mh ~ competence + goodwill + trustworthiness + belief_rehab + tx_sexoffender + tx_professor
 '
 
 multi_fit = sem(multi_sem, 
