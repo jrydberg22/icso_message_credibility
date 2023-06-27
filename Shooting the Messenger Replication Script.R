@@ -13,7 +13,6 @@ install.packages(c("tidyverse", "haven", "survey", "psych", "lavaan"))
 
 library(tidyverse)
 library(haven)
-library(naniar)
 library(survey)
 library(psych)
 library(lavaan)
@@ -348,3 +347,30 @@ sem_fit = sem(sem_model, data = dta,
 standardizedSolution(sem_fit, ci = TRUE, level = 0.95, type = "std.lv") %>%
   filter(op == ":=")
 
+## Comparison to Multifactor Model
+
+multi_sem = '
+# Latent Credibility Construct
+competence =~ intelligent + expert + informed + competent + smart
+goodwill =~ not_slfcentered + interests_heart + concerned_wme + sensitive + understanding
+trustworthiness =~ honest + trustworthy + honorable + ethical + genuine
+
+belief_rehab =~ belief_tx_1 + belief_tx_2 + belief_tx_3 + belief_tx_4
+belief_mh =~ belief_mh_1 + belief_mh_2 + belief_mh_3 + belief_mh_4
+
+# Regressions
+competence ~ tx_sexoffender + tx_professor
+goodwill ~ tx_sexoffender + tx_professor
+trustworthiness ~ tx_sexoffender + tx_professor
+
+belief_rehab ~ competence + goodwill + trustworthiness + tx_sexoffender + tx_professor
+belief_mh ~ competence + goodwill + trustworthiness + + belief_rehab + tx_sexoffender + tx_professor
+'
+
+multi_fit = sem(multi_sem, 
+                data = dta, 
+                sampling.weights = "weight", 
+                missing = "ml",
+                estimator = "MLR")
+
+summary(multi_fit, fit.measures = TRUE)
